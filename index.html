@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @font-face {
+      font-family: 'Marianne';
+      src: url('Marianne/fontes web/Marianne-Thin.woff2') format('woff2'),
+           url('Marianne/fontes web/Marianne-Thin.woff') format('woff');
+      font-weight: 100;
+    }
+    @font-face {
+      font-family: 'Marianne';
+      src: url('Marianne/fontes web/Marianne-Light.woff2') format('woff2'),
+           url('Marianne/fontes web/Marianne-Light.woff') format('woff');
+      font-weight: 300;
+    }
+    @font-face {
+      font-family: 'Marianne';
+      src: url('Marianne/fontes web/Marianne-Regular.woff2') format('woff2'),
+           url('Marianne/fontes web/Marianne-Regular.woff') format('woff');
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: 'Marianne';
+      src: url('Marianne/fontes web/Marianne-Medium.woff2') format('woff2'),
+           url('Marianne/fontes web/Marianne-Medium.woff') format('woff');
+      font-weight: 500;
+    }
+    @font-face {
+      font-family: 'Marianne';
+      src: url('Marianne/fontes web/Marianne-Bold.woff2') format('woff2'),
+           url('Marianne/fontes web/Marianne-Bold.woff') format('woff');
+      font-weight: 700;
+    }
+    @font-face {
+      font-family: 'Marianne';
+      src: url('Marianne/fontes web/Marianne-ExtraBold.woff2') format('woff2'),
+           url('Marianne/fontes web/Marianne-ExtraBold.woff') format('woff');
+      font-weight: 800;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Marianne', Arial, sans-serif; }
+    body { background: white; padding: 20px; }
+    .card { background: white; max-width: 78rem; margin: auto; border: none; }
+    .card-title {
+      background: #3558a2;
+      color: white;
+      text-align: center;
+      padding: 14px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .sections { display: flex; padding: 24px; gap: 24px; }
+    .section { flex: 1; border: 1px solid #ddd; }
+    .section-title {
+      background: #3558a2;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 15px;
+      font-weight: bold;
+    }
+    .section-body { padding: 16px; }
+    .field { display: flex; margin-bottom: 10px; align-items: flex-start; }
+    .label { font-weight: bold; min-width: 220px; font-size: 14px; }
+    .value { font-size: 14px; }
+    .etat-civil-body { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .etat-civil-fields { flex: 1; }
+    .photo {
+      width: 100px;
+      height: 130px;
+      object-fit: cover;
+      object-position: center top;
+      border: 1px solid #ccc;
+      flex-shrink: 0;
+    }
+    .bottom-section { padding: 0 24px 24px; }
+    .qual-sections { display: flex; gap: 24px; }
+    .qual-section { border: 1px solid #ddd; flex: 1; }
+    .lire-suite { color: #3558a2; font-size: 14px; padding: 8px 16px 12px; display: block; }
+    .autre-btn { display: flex; justify-content: flex-end; padding: 10px 16px; }
+    .autre-btn button {
+      background: white;
+      color: #3558a2;
+      border: 1px solid #3558a2;
+      padding: 8px 20px;
+      cursor: pointer;
+      font-size: 14px;
+      font-family: 'Marianne', Arial, sans-serif;
+    }
+    .autre-btn button:hover {
+      background: #f0f4ff;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      align-items: center;
+      padding: 12px 24px;
+      border-bottom: 1px solid #ddd;
+      background: white;
+      width: 100%;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+    }
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 78rem;
+      margin: 0 auto;
+    }
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .navbar-logo {
+      width: 120px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .navbar-logo img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    .navbar-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #222;
+      text-align: left;
+    }
+    .navbar-aide {
+      color: #000091;
+      font-size: 14px;
+      font-weight: bold;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .navbar-aide::before {
+      content: "📄";
+      font-size: 16px;
+    }
+
+    /* RESPONSIVE MOBILE */
+    @media (max-width: 991px) {
+      body { padding: 10px; }
+      .sections { flex-direction: column; padding: 10px; gap: 10px; }
+      .label { min-width: 130px; font-size: 13px; }
+      .value { font-size: 13px; }
+      .photo { width: 90px; height: 115px; }
+      .bottom-section { padding: 0 10px 10px; }
+      .qual-sections { flex-direction: column; }
+      .qual-section { max-width: 100%; }
+      .autre-btn { padding: 10px; }
+      .autre-btn button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="navbar-left">
+        <div class="navbar-logo">
+          <img src="logo.png" alt="Logo">
+        </div>
+        <div class="navbar-title">Portail de recherche d'éducateur sportif</div>
+      </div>
+      <a class="navbar-aide" href="#">Aide</a>
+    </div>
+  </nav>
+
+  <div class="card">
+    <div class="card-title">Educateur</div>
+
+    <div class="sections">
+      <!-- Etat civil -->
+      <div class="section">
+        <div class="section-title">Etat civil</div>
+        <div class="section-body">
+          <div class="etat-civil-body">
+            <div class="etat-civil-fields">
+              <div class="field">
+                <span class="label">Prénom</span>
+                <span class="value">Selim</span>
+              </div>
+              <div class="field">
+                <span class="label">Nom</span>
+                <span class="value">OUADI</span>
+              </div>
+            </div>
+            <img class="photo" src="photo.png" alt="Photo">
+          </div>
+        </div>
+      </div>
+
+      <!-- Carte professionnelle -->
+      <div class="section">
+        <div class="section-title">Carte professionnelle</div>
+        <div class="section-body">
+          <div class="field">
+            <span class="label">N° de carte professionnelle</span>
+            <span class="value">07725ED0392</span>
+          </div>
+          <div class="field">
+            <span class="label">Expire le</span>
+            <span class="value">29/09/2030</span>
+          </div>
+          <div class="field">
+            <span class="label">Délivrée par</span>
+            <span class="value">SDJES ESSONNE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Qualifications -->
+    <div class="bottom-section">
+      <div class="qual-sections">
+        <div class="qual-section">
+          <div class="section-title">Qualification 1</div>
+          <div class="section-body">
+            <div class="field">
+              <span class="label">Nom</span>
+              <span class="value">BPJEPS (4 UC) - Éducateur sportif - Activités de la forme - Haltérophilie, musculation</span>
+            </div>
+            <div class="field">
+              <span class="label">Date d'obtention</span>
+              <span class="value">18/09/2025</span>
+            </div>
+            <div class="field">
+              <span class="label">Conditions d'exercice</span>
+              <span class="value">Découverte d'activités de loisir et d'animation des activités de la forme. Encadrement, initiation ...</span>
+            </div>
+          </div>
+          <a class="lire-suite" href="#">Lire la suite</a>
+        </div>
+
+        <!-- Qualification 2 -->
+        <div class="qual-section">
+          <div class="section-title">Qualification 2</div>
+          <div class="section-body">
+            <div class="field">
+              <span class="label">Nom</span>
+              <span class="value">BPJEPS (4 UC) - Éducateur sportif - Activités de la forme - Cours collectifs</span>
+            </div>
+            <div class="field">
+              <span class="label">Date d'obtention</span>
+              <span class="value">18/09/2025</span>
+            </div>
+            <div class="field">
+              <span class="label">Conditions d'exercice</span>
+              <span class="value">Découverte d'activités de loisir et d'animation des activités de la forme. Encadrement, initiation e...</span>
+            </div>
+          </div>
+          <a class="lire-suite" href="#">Lire la suite</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="autre-btn">
+      <button>Autre recherche</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-logo">
+          <img src="logo.png" alt="Logo">
+        </div>
+        <p class="footer-tagline">Liberté<br>Égalité<br>Fraternité</p>
+      </div>
+      <div class="footer-right">
+        <p>Ce site est géré par la Direction des Sports (DS)</p>
+        <p>Découvrez également jeunes.gouv.fr et education.gouv.fr</p>
+        <div class="footer-links">
+          <a href="#">sports.gouv.fr ↗</a>
+          <a href="#">legifrance.gouv.fr ↗</a>
+          <a href="#">gouvernement.fr ↗</a>
+          <a href="#">service-public.gouv.fr ↗</a>
+          <a href="#">data.gouv.fr ↗</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <a href="#">Mentions légales</a>
+      <span>|</span>
+      <a href="#">Accessibilité : partiellement conforme</a>
+      <span>|</span>
+      <a href="#">Plan du site</a>
+      <span>|</span>
+      <a href="#">Annuaire des services départementaux ↗</a>
+      <span>|</span>
+      <a href="#">Gestion des cookies</a>
+    </div>
+    <div class="footer-license">
+      Sauf mention contraire, tous les contenus de ce site sont sous <a href="#">licence etalab-2.0 ↗</a>
+    </div>
+  </footer>
+
+  <style>
+    .footer {
+      background: white;
+      border-top: 2px solid #3558a2;
+      margin-top: 30px;
+      padding: 30px 24px 16px;
+    }
+    .footer-inner {
+      display: flex;
+      gap: 40px;
+      max-width: 78rem;
+      margin: 0 auto 24px auto;
+      align-items: flex-start;
+    }
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .footer-logo {
+      width: 120px;
+      height: 70px;
+    }
+    .footer-logo img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    .footer-tagline {
+      font-size: 12px;
+      font-style: italic;
+      color: #444;
+      line-height: 1.5;
+    }
+    .footer-right {
+      flex: 1;
+    }
+    .footer-right p {
+      font-size: 13px;
+      color: #333;
+      margin-bottom: 6px;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 12px;
+    }
+    .footer-links a {
+      font-size: 13px;
+      font-weight: bold;
+      color: #222;
+      text-decoration: none;
+    }
+    .footer-links a:hover { text-decoration: underline; }
+    .footer-bottom {
+      max-width: 78rem;
+      margin: 0 auto;
+      border-top: 1px solid #ddd;
+      padding-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      font-size: 13px;
+      color: #555;
+    }
+    .footer-bottom a { color: #555; text-decoration: none; }
+    .footer-bottom a:hover { text-decoration: underline; }
+    .footer-bottom span { color: #bbb; }
+    .footer-license {
+      max-width: 78rem;
+      margin: 10px auto 0;
+      font-size: 13px;
+      color: #555;
+    }
+    .footer-license a { color: #3558a2; }
+
+    @media (max-width: 991px) {
+      .footer-inner { flex-direction: column; gap: 20px; }
+      .footer-bottom { gap: 6px; }
+    }
+  </style>
+</body>
+</html>
